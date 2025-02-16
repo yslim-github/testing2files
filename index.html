@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ANIMAGENT - Retro Animation</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+        
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: #000;
+            color: #00ff00;
+            font-family: 'Press Start 2P', cursive;
+        }
+        
+        .container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        
+        .title {
+            font-size: 3em;
+            text-shadow: 0 0 10px #00ff00;
+            margin-bottom: 1em;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+        
+        .grid {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 255, 0, 0.3) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 0, 0.3) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -1;
+            animation: gridMove 20s linear infinite;
+        }
+        
+        .menu {
+            display: flex;
+            gap: 2em;
+        }
+        
+        .menu-item {
+            cursor: pointer;
+            padding: 0.5em 1em;
+            border: 2px solid #00ff00;
+            animation: borderBlink 1s infinite;
+        }
+        
+        .menu-item:hover {
+            background: #00ff00;
+            color: #000;
+        }
+        
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px #00ff00;
+            }
+            to {
+                text-shadow: 0 0 20px #00ff00, 0 0 30px #00ff00;
+            }
+        }
+        
+        @keyframes gridMove {
+            from {
+                transform: translateY(0);
+            }
+            to {
+                transform: translateY(50px);
+            }
+        }
+        
+        @keyframes borderBlink {
+            50% {
+                border-color: transparent;
+            }
+        }
+        
+        .cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border: 2px solid #00ff00;
+            border-radius: 50%;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            transition: all 0.1s ease;
+            z-index: 9999;
+        }
+        
+        .content-section {
+            position: absolute;
+            width: 80%;
+            max-width: 800px;
+            background: rgba(0, 20, 0, 0.9);
+            border: 2px solid #00ff00;
+            padding: 2em;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+        
+        .content-section.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        
+        .content-section h2 {
+            color: #00ff00;
+            margin-bottom: 1em;
+            text-shadow: 0 0 5px #00ff00;
+        }
+        
+        .content-section p {
+            font-size: 0.8em;
+            line-height: 1.6;
+            margin-bottom: 1em;
+        }
+        
+        .close-btn {
+            position: absolute;
+            top: 1em;
+            right: 1em;
+            cursor: pointer;
+            font-size: 1.2em;
+            color: #00ff00;
+        }
+        
+        .close-btn:hover {
+            text-shadow: 0 0 10px #00ff00;
+        }
+        
+        @keyframes matrixRain {
+            0% {
+                background-position: 0 0;
+            }
+            100% {
+                background-position: 0 100%;
+            }
+        }
+        
+        .matrix-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(0deg, 
+                rgba(0, 255, 0, 0.1) 25%, 
+                rgba(0, 255, 0, 0.05) 50%, 
+                transparent 75%);
+            opacity: 0;
+            z-index: -1;
+            transition: opacity 0.5s;
+        }
+        
+        .content-section.active .matrix-bg {
+            opacity: 1;
+            animation: matrixRain 20s linear infinite;
+        }
+    </style>
+</head>
+<body>
+    <div class="cursor"></div>
+    <div class="container">
+        <div class="grid"></div>
+        <h1 class="title">ANIMAGENT</h1>
+        <nav class="menu">
+            <div class="menu-item" data-section="enter">ENTER</div>
+            <div class="menu-item" data-section="about">ABOUT</div>
+            <div class="menu-item" data-section="contact">CONTACT</div>
+        </nav>
+        
+        <div id="enter-section" class="content-section">
+            <div class="matrix-bg"></div>
+            <div class="close-btn">×</div>
+            <h2>WELCOME TO THE MATRIX</h2>
+            <p>Initialize sequence... System loading... Access granted.</p>
+            <p>Enter the digital realm where reality meets code.</p>
+        </div>
+        
+        <div id="about-section" class="content-section">
+            <div class="matrix-bg"></div>
+            <div class="close-btn">×</div>
+            <h2>ABOUT THE SYSTEM</h2>
+            <p>Est. 2000. We are the architects of the digital frontier.</p>
+            <p>Our mission: Push the boundaries of what's possible in the digital realm.</p>
+        </div>
+        
+        <div id="contact-section" class="content-section">
+            <div class="matrix-bg"></div>
+            <div class="close-btn">×</div>
+            <h2>ESTABLISH CONNECTION</h2>
+            <p>Transmission coordinates:</p>
+            <p>contact@animagent.matrix</p>
+            <p>Signal frequency: 24/7</p>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 
